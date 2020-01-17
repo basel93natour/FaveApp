@@ -1,5 +1,7 @@
 package com.basel.natour.myapplication;
 
+import com.basel.natour.myapplication.di.Component.DaggerAppComponent;
+
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 
