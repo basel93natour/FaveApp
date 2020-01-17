@@ -1,6 +1,6 @@
 package com.basel.natour.myapplication.di.Modules;
 
-import com.basel.natour.myapplication.MainActivity;
+import com.basel.natour.myapplication.views.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

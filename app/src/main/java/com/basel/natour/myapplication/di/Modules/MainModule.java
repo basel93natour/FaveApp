@@ -2,7 +2,7 @@ package com.basel.natour.myapplication.di.Modules;
 
 import androidx.lifecycle.ViewModel;
 
-import com.basel.natour.myapplication.MainActivityViewModel;
+import com.basel.natour.myapplication.views.MainActivityViewModel;
 import com.basel.natour.myapplication.di.ViewModelKey;
 
 import dagger.Binds;
