@@ -3,13 +3,14 @@ package com.basel.natour.myapplication.model.pagination;
 import androidx.annotation.NonNull;
 import androidx.paging.DataSource;
 
+import com.basel.natour.myapplication.model.MoviesModel;
 import com.basel.natour.myapplication.model.MoviesRequest;
 import com.basel.natour.myapplication.model.MoviesResponse;
 import com.basel.natour.myapplication.network.MoviesServiceApi;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MoviesDataSourceFactory extends DataSource.Factory<Integer, MoviesResponse> {
+public class MoviesDataSourceFactory extends DataSource.Factory<Integer, MoviesModel> {
 
 
     CompositeDisposable compositeDisposable;
@@ -26,7 +27,7 @@ public class MoviesDataSourceFactory extends DataSource.Factory<Integer, MoviesR
 
     @NonNull
     @Override
-    public DataSource<Integer, MoviesResponse> create() {
+    public DataSource<Integer, MoviesModel> create() {
         return new MoviesDataSource( compositeDisposable, moviesServiceApi,moviesRequest);
     }
 }

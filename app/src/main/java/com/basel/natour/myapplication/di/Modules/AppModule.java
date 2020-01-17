@@ -27,7 +27,7 @@ public class AppModule {
     Retrofit provideRetrofitClient()
     {
         return new Retrofit.Builder()
-                .baseUrl( "http://api.themoviedb.org/3/" )
+                .baseUrl( "http://api.themoviedb.org/3/discover/" )
                 .addConverterFactory( GsonConverterFactory.create())
                 .addCallAdapterFactory( RxJava2CallAdapterFactory.create())
                 .client( AppUtils.getOkHttpClient().build())

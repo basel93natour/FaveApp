@@ -7,11 +7,14 @@ import com.basel.natour.myapplication.di.Modules.ActivityBuilderModule;
 import com.basel.natour.myapplication.di.Modules.AppModule;
 import com.basel.natour.myapplication.di.Modules.ViewModelProivderModule;
 
+import javax.inject.Singleton;
+
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
+@Singleton
 @Component(modules = {ActivityBuilderModule.class, AppModule.class, AndroidSupportInjectionModule.class, ViewModelProivderModule.class})
 public interface AppComponent extends AndroidInjector<App> {
 

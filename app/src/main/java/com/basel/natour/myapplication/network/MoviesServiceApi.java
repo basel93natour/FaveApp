@@ -12,8 +12,10 @@ import retrofit2.http.Query;
 public interface MoviesServiceApi {
 
 
-    @GET("movie") //&primary_release_date.lte=2016-12-31&sort_by=release_date.de sc&page=1
-    Single<List<MoviesResponse>> getMovies(@Query("primary_release_date.lte") String releaseDate
+    @GET("movie")
+    Single<MoviesResponse> getMovies(
+            @Query( "api_key") String api_key
+            ,@Query("primary_release_date.lte") String releaseDate
             , @Query( "sort_by" ) String sortBy
             , @Query( "page" ) int page);
 }

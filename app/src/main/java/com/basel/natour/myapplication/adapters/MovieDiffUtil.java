@@ -9,11 +9,11 @@ public class MovieDiffUtil  extends DiffUtil.ItemCallback<MoviesModel>
 {
     @Override
     public boolean areItemsTheSame(@NonNull MoviesModel oldItem , @NonNull MoviesModel newItem) {
-        return false;
+        return oldItem.getId()==newItem.getId();
     }
 
     @Override
     public boolean areContentsTheSame(@NonNull MoviesModel oldItem , @NonNull MoviesModel newItem) {
-        return false;
+        return oldItem.getTitle().equalsIgnoreCase( newItem.getTitle() );
     }
 }
