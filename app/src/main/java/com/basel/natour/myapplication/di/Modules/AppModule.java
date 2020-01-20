@@ -10,6 +10,9 @@ import com.basel.natour.myapplication.database.AppDataBase;
 import com.basel.natour.myapplication.database.MoviesDao;
 import com.basel.natour.myapplication.network.MoviesServiceApi;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -27,7 +30,7 @@ public class AppModule {
     Retrofit provideRetrofitClient()
     {
         return new Retrofit.Builder()
-                .baseUrl( "http://api.themoviedb.org/3/discover/" )
+                .baseUrl( "http://api.themoviedb.org/3/" )
                 .addConverterFactory( GsonConverterFactory.create())
                 .addCallAdapterFactory( RxJava2CallAdapterFactory.create())
                 .client( AppUtils.getOkHttpClient().build())
@@ -60,5 +63,11 @@ public class AppModule {
     public CompositeDisposable provideCompsiteDisposable()
     {
         return new CompositeDisposable(  );
+    }
+
+    @Provides
+    public Executor provideExecutor()
+    {
+        return  Executors.newSingleThreadExecutor();
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FaveApp</string>
+    <string name="booking_url">https://www.cathaycineplexes.com.sg/</string>
 </resources>

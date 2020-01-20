@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#80797F87"
+    android:fillViewport="true"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <RelativeLayout
+            android:id="@+id/rl_movie_details"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2"
+            android:padding="@dimen/_10sdp"
+
+            >
+
+            <TextView
+                android:id="@+id/tv_movie_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie OverView:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli_semibold"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/movie_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_below="@+id/tv_movie_overview"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_movie_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie Genres:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli_semibold"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textStyle="bold"
+                android:layout_below="@+id/movie_overview"
+                />
+
+            <TextView
+                android:id="@+id/movie_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_below="@+id/tv_movie_genre"
+                />
+
+            <TextView
+                android:id="@+id/tv_movie_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie Language:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli_semibold"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textStyle="bold"
+                android:layout_below="@+id/movie_genre"
+                />
+
+            <TextView
+                android:id="@+id/movie_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_below="@+id/tv_movie_language"
+
+                />
+
+
+            <TextView
+                android:id="@+id/tv_movie_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie Duration:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli_semibold"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textStyle="bold"
+                android:layout_below="@+id/movie_language"
+
+                />
+
+            <TextView
+                android:id="@+id/movie_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01:39"
+                android:fontFamily="@font/muli"
+                android:textSize="14sp"
+                android:textColor="#1AC175"
+
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_below="@+id/tv_movie_duration"
+                />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/book_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/rounded_btn"
+            android:padding="@dimen/_13sdp"
+            android:text="Book Now"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_movie_details"
+             />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

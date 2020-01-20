@@ -1,15 +1,19 @@
 package com.basel.natour.myapplication.model.pagination;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
 import com.basel.natour.myapplication.BuildConfig;
+import com.basel.natour.myapplication.database.MoviesDao;
 import com.basel.natour.myapplication.model.MoviesModel;
 import com.basel.natour.myapplication.model.MoviesRequest;
 import com.basel.natour.myapplication.model.MoviesResponse;
 import com.basel.natour.myapplication.network.MoviesServiceApi;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -21,18 +25,26 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, MoviesModel> 
     CompositeDisposable compositeDisposable;
     MoviesServiceApi moviesServiceApi;
     MoviesRequest moviesRequest;
-
+    MoviesDao moviesDao;
+    Executor executor;
+    int initialPageNumber;
     public MoviesDataSource(CompositeDisposable compositeDisposable
-            , MoviesServiceApi moviesServiceApi, MoviesRequest moviesRequest) {
+            , MoviesServiceApi moviesServiceApi, MoviesRequest moviesRequest
+            , MoviesDao moviesDao
+            , Executor executor
+            ,int initialPageNumber) {
 
         this.compositeDisposable=compositeDisposable;
         this.moviesServiceApi=moviesServiceApi;
         this.moviesRequest=moviesRequest;
+        this.moviesDao=moviesDao;
+        this.executor=executor;
+        this.initialPageNumber=initialPageNumber;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params , @NonNull LoadInitialCallback<Integer, MoviesModel> callback) {
-        getMoviesByPage( 1,2,callback,null );
+        getMoviesByPage( initialPageNumber,initialPageNumber+1,callback,null );
     }
 
     @Override
@@ -53,15 +65,21 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, MoviesModel> 
                         Schedulers.io() ).observeOn( AndroidSchedulers.mainThread() ).subscribe(
                         new Consumer<MoviesResponse>() {
                             @Override
-                            public void accept(MoviesResponse moviesResponses) throws Exception {
-                              if ( initialCallback!=null )
-                              {
-                                  initialCallback.onResult( moviesResponses.getResults(),null,nextPage );
-                              }
-                              else if ( loadCallback!=null )
-                              {
-                                loadCallback.onResult( moviesResponses.getResults(),nextPage );
-                              }
+                            public void accept(final MoviesResponse moviesResponses) throws Exception {
+
+                                if ( initialCallback != null ) {
+                                    initialCallback.onResult( moviesResponses.getResults() , null ,
+                                            nextPage );
+                                } else if ( loadCallback != null ) {
+                                    loadCallback.onResult( moviesResponses.getResults() ,
+                                            nextPage );
+                                }
+                            }
+                        } , new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+
                             }
                         } ) );
 

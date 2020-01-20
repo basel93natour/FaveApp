@@ -2,8 +2,9 @@ package com.basel.natour.myapplication.di.Modules;
 
 import androidx.lifecycle.ViewModel;
 
-import com.basel.natour.myapplication.views.MainActivityViewModel;
+import com.basel.natour.myapplication.views.MainActivity.MainActivityViewModel;
 import com.basel.natour.myapplication.di.ViewModelKey;
+import com.basel.natour.myapplication.views.MovieDetailsActivity.MovieDetailsViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -16,4 +17,9 @@ public abstract class MainModule {
     @IntoMap
     @ViewModelKey( MainActivityViewModel.class )
     public  abstract ViewModel bindMainActivityViewModel(MainActivityViewModel mainActivityViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( MovieDetailsViewModel.class )
+    public  abstract ViewModel bindMovieDetailsActivityViewModel(MovieDetailsViewModel movieDetailsViewModel);
 }
