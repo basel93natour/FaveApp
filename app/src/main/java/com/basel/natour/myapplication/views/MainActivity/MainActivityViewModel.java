@@ -1,5 +1,6 @@
 package com.basel.natour.myapplication.views.MainActivity;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -35,20 +36,17 @@ public class MainActivityViewModel extends ViewModel {
                 pagedListMutableLiveData.setValue( moviesResponses );
             }
         };
-        moviesRepo.getMoviesLiveData().observeForever( observer );
     }
 
 
-    public void getMovies(int initialPageNumber)
+    public LiveData<PagedList<MoviesModel>> getMovies(int initialPageNumber)
     {
-
         //prepare body
         MoviesRequest moviesRequest =new MoviesRequest();
         moviesRequest.setPage( initialPageNumber );
         moviesRequest.setSortBy( "release_date.desc" );
         moviesRequest.setReleaseDate( "2016-12-31" );
-
-        moviesRepo.getMovies( moviesRequest,initialPageNumber);
+        return moviesRepo.getMovies( moviesRequest,initialPageNumber);
     }
 
     public MutableLiveData<PagedList<MoviesModel>> getPagedListMutableLiveData() {

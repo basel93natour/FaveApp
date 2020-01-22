@@ -2,11 +2,16 @@ package com.basel.natour.myapplication;
 
 import android.content.Context;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.basel.natour.myapplication.network.MoviesServiceApi;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 
 import static org.junit.Assert.*;
 
@@ -17,11 +22,13 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals( "com.basel.natour.myapplication" , appContext.getPackageName() );
-    }
+    @Rule
+    InstantTaskExecutorRule instantTaskExecutorRule=new InstantTaskExecutorRule();
+
+   @Mock
+   MoviesServiceApi moviesServiceApi;
+
+
+
 }

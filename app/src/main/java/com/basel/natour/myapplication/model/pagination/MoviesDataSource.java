@@ -13,11 +13,15 @@ import com.basel.natour.myapplication.model.MoviesResponse;
 import com.basel.natour.myapplication.network.MoviesServiceApi;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.concurrent.Executor;
 
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MoviesDataSource extends PageKeyedDataSource<Integer, MoviesModel> {
@@ -61,7 +65,8 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, MoviesModel> 
     {
 
         compositeDisposable.add(
-                moviesServiceApi.getMovies( "328c283cd27bd1877d9080ccb1604c91",moviesRequest.getReleaseDate(),moviesRequest.getSortBy(),currentPage ).subscribeOn(
+                moviesServiceApi.getMovies( "328c283cd27bd1877d9080ccb1604c91",moviesRequest.getReleaseDate(),moviesRequest.getSortBy(),currentPage )
+                        .subscribeOn(
                         Schedulers.io() ).observeOn( AndroidSchedulers.mainThread() ).subscribe(
                         new Consumer<MoviesResponse>() {
                             @Override

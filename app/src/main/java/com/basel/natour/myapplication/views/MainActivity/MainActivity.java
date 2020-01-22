@@ -49,25 +49,21 @@ public class MainActivity extends BaseActivity implements MoviesListPagedAdapter
         recyclerViewView.setAdapter( moviesListPagedAdapter );
 
 
-        mainActivityViewModel.getMovies( 1 );
-
-        //observe movie lists coming from api for any changes
-        mainActivityViewModel.getPagedListMutableLiveData().observe( MainActivity.this ,
+        mainActivityViewModel.getMovies( 1 ).observe( MainActivity.this ,
                 new Observer<PagedList<MoviesModel>>() {
                     @Override
                     public void onChanged(PagedList<MoviesModel> moviesModels) {
-
                         moviesListPagedAdapter.submitList( moviesModels );
 
                     }
                 } );
-
 
         swiperefresh.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
                 int lastKey=moviesListPagedAdapter.getCurrentList().getLoadedCount();
+
                 mainActivityViewModel.getMovies( (lastKey/20)+1 );
                 swiperefresh.setRefreshing(false); // Disables the refresh icon
             }

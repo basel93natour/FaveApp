@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.basel.natour.myapplication.R;
 import com.basel.natour.myapplication.di.ViewModelProviderFactory;
 import com.basel.natour.myapplication.model.MovieDetailsModel;
+import com.basel.natour.myapplication.model.Resource;
 import com.basel.natour.myapplication.views.BaseActivity;
 import com.basel.natour.myapplication.views.BookMovieActivity;
 
@@ -50,21 +52,26 @@ public class MovieDetailsActivity extends BaseActivity {
 
         int movie_id = getIntent().getIntExtra( "movie_id" , 0 );
         movieDetailsViewModel.getMovieDetails( movie_id );
+
         movieDetailsViewModel.getMovieDetailsLiveData().observe( this ,
-                new Observer<MovieDetailsModel>() {
+                new Observer<Resource<MovieDetailsModel>>() {
                     @Override
-                    public void onChanged(MovieDetailsModel movieDetailsModel) {
-
-                        movieOverview.setText( movieDetailsModel.getOverview().length()!=0? movieDetailsModel.getOverview() : "Not Available");
-                        movieGenre.setText( movieDetailsViewModel.getMovieGenres(
-                                movieDetailsModel.getGenres() ) );
-                        movieLanguage.setText( movieDetailsViewModel.getMovieSpokenLanguage(
-                                movieDetailsModel.getSpokenLanguages() ) );
-                        movieDuration.setText( (movieDetailsModel.getRuntime()!=null? (movieDetailsModel.getRuntime() + "Min") : "Not Available")   );
-
+                    public void onChanged(Resource<MovieDetailsModel> movieDetailsModelResource) {
+                       if ( movieDetailsModelResource.getStatus().isSuccess() )
+                       {
+                           movieOverview.setText( movieDetailsModelResource.getData().getOverview().length()!=0? movieDetailsModelResource.getData().getOverview() : "Not Available");
+                           movieGenre.setText( movieDetailsViewModel.getMovieGenres(
+                                   movieDetailsModelResource.getData().getGenres() ) );
+                           movieLanguage.setText( movieDetailsViewModel.getMovieSpokenLanguage(
+                                   movieDetailsModelResource.getData().getSpokenLanguages() ) );
+                           movieDuration.setText( (movieDetailsModelResource.getData().getRuntime()!=null? (movieDetailsModelResource.getData().getRuntime() + "Min") : "Not Available")   );
+                       }
+                        else if ( movieDetailsModelResource.getStatus().isFailed() )
+                       {
+                           Toast.makeText( MovieDetailsActivity.this, movieDetailsModelResource.getErrorMessage(),Toast.LENGTH_LONG).show();
+                       }
                     }
                 } );
-
         bookMovie.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {

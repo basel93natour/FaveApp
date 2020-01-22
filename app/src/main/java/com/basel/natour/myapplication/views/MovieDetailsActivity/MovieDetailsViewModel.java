@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.basel.natour.myapplication.model.Genre;
 import com.basel.natour.myapplication.model.MovieDetailsModel;
+import com.basel.natour.myapplication.model.Resource;
 import com.basel.natour.myapplication.model.SpokenLanguage;
 import com.basel.natour.myapplication.repo.MoviesRepo;
 
@@ -17,7 +18,7 @@ import io.reactivex.functions.Consumer;
 public class MovieDetailsViewModel extends ViewModel {
 
     MoviesRepo moviesRepo;
-    private MutableLiveData<MovieDetailsModel> mutableLiveData=new MutableLiveData<>(  );
+    private MutableLiveData<Resource<MovieDetailsModel>> mutableLiveData=new MutableLiveData<>(  );
     @Inject
     public MovieDetailsViewModel(MoviesRepo moviesRepo) {
         this.moviesRepo=moviesRepo;
@@ -25,11 +26,18 @@ public class MovieDetailsViewModel extends ViewModel {
 
     public void getMovieDetails(int movie_id)
     {
+
+        mutableLiveData.setValue( Resource.<MovieDetailsModel>loading() );
         moviesRepo.getMovieDetails( movie_id ).subscribe( new Consumer<MovieDetailsModel>() {
             @Override
             public void accept(MovieDetailsModel movieDetailsModel) throws Exception {
-                if ( movieDetailsModel!=null )
-                    mutableLiveData.setValue( movieDetailsModel );
+                if ( movieDetailsModel != null )
+                    mutableLiveData.setValue( Resource.success(  movieDetailsModel) );
+            }
+        } , new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                mutableLiveData.setValue( Resource.<MovieDetailsModel>error("Failed to connect") );
             }
         } );
     }
@@ -69,7 +77,7 @@ public class MovieDetailsViewModel extends ViewModel {
         return languageText.toString();
     }
 
-    public MutableLiveData<MovieDetailsModel> getMovieDetailsLiveData()
+    public MutableLiveData<Resource<MovieDetailsModel>> getMovieDetailsLiveData()
     {
         return mutableLiveData;
     }
